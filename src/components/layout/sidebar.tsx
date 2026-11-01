@@ -26,29 +26,29 @@ export function AppSidebar({ userRole }: SidebarProps) {
 
   return (
     <aside
-      className={`relative flex flex-col shrink-0 bg-[#FFFDFB] border-r border-[#F0E7E1] transition-all duration-300 ease-in-out z-30 select-none ${
+      className={`relative flex flex-col shrink-0 bg-[#FFFDFB] dark:bg-stone-900 border-r border-[#F0E7E1] dark:border-stone-800 transition-all duration-300 ease-in-out z-30 select-none ${
         isCollapsed ? "w-20" : "w-64"
       }`}
     >
       {/* Botón Flotante para Colapsar/Expandir la Barra Lateral */}
       <button
         onClick={() => setIsCollapsed(!isCollapsed)}
-        className="absolute -right-3 top-6 z-40 bg-white border border-[#E7DDD6] rounded-full p-1 text-stone-500 hover:text-[#C2410C] hover:border-[#C2410C] shadow-xs transition-all"
+        className="absolute -right-3 top-6 z-40 bg-white dark:bg-stone-800 border border-[#E7DDD6] dark:border-stone-700 rounded-full p-1 text-stone-500 dark:text-stone-400 hover:text-[#C2410C] dark:hover:text-orange-400 hover:border-[#C2410C] dark:hover:border-orange-500 shadow-xs transition-all"
         title={isCollapsed ? "Expandir barra lateral" : "Contraer barra lateral"}
       >
         {isCollapsed ? <ChevronRight className="w-3.5 h-3.5" /> : <ChevronLeft className="w-3.5 h-3.5" />}
       </button>
 
       {/* Header del Logo */}
-      <div className="h-16 px-5 flex items-center border-b border-[#F0E7E1]/70">
+      <div className="h-16 px-5 flex items-center border-b border-[#F0E7E1]/70 dark:border-stone-800">
         <Link href="/dashboard/tickets" className="flex items-center gap-3 overflow-hidden">
           <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#EA580C] to-[#C2410C] flex items-center justify-center text-white shadow-xs shrink-0">
             <Ticket className="w-5 h-5 rotate-[-10deg]" />
           </div>
           {!isCollapsed && (
-            <div className="flex items-center tracking-tight font-bold text-lg text-stone-900 truncate">
+            <div className="flex items-center tracking-tight font-bold text-lg text-stone-900 dark:text-stone-100 truncate">
               <span>Ticket</span>
-              <span className="text-[#C2410C]">Hub</span>
+              <span className="text-[#C2410C] dark:text-orange-500">Hub</span>
             </div>
           )}
         </Link>
@@ -59,11 +59,11 @@ export function AppSidebar({ userRole }: SidebarProps) {
         {/* SECCIÓN: GESTIÓN */}
         <div>
           {!isCollapsed ? (
-            <h4 className="px-3 text-[11px] font-bold text-stone-400 uppercase tracking-wider mb-2">
+            <h4 className="px-3 text-[11px] font-bold text-stone-400 dark:text-stone-500 uppercase tracking-wider mb-2">
               Gestión
             </h4>
           ) : (
-            <div className="h-px bg-stone-200/70 my-2" />
+            <div className="h-px bg-stone-200/70 dark:bg-stone-800 my-2" />
           )}
 
           <nav className="space-y-1">
@@ -71,12 +71,12 @@ export function AppSidebar({ userRole }: SidebarProps) {
               href="/dashboard/tickets"
               className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-semibold transition-all ${
                 pathname.startsWith("/dashboard/tickets")
-                  ? "bg-[#FFF1EB] text-[#C2410C] font-bold border border-[#FDE0D4]"
-                  : "text-stone-600 hover:text-stone-900 hover:bg-stone-100/70"
+                  ? "bg-[#FFF1EB] dark:bg-orange-950/40 text-[#C2410C] dark:text-orange-400 font-bold border border-[#FDE0D4] dark:border-orange-900/50"
+                  : "text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100 hover:bg-stone-100/70 dark:hover:bg-stone-800/70"
               }`}
               title="Mis Tickets"
             >
-              <Ticket className="w-4 h-4 shrink-0 text-[#C2410C]" />
+              <Ticket className="w-4 h-4 shrink-0 text-[#C2410C] dark:text-orange-400" />
               {!isCollapsed && <span>Mis Tickets</span>}
             </Link>
           </nav>
@@ -86,11 +86,11 @@ export function AppSidebar({ userRole }: SidebarProps) {
         {isAdmin && (
           <div>
             {!isCollapsed ? (
-              <h4 className="px-3 text-[11px] font-bold text-stone-400 uppercase tracking-wider mb-2">
+              <h4 className="px-3 text-[11px] font-bold text-stone-400 dark:text-stone-500 uppercase tracking-wider mb-2">
                 Administración
               </h4>
             ) : (
-              <div className="h-px bg-stone-200/70 my-2" />
+              <div className="h-px bg-stone-200/70 dark:bg-stone-800 my-2" />
             )}
 
             <nav className="space-y-1">
@@ -100,7 +100,7 @@ export function AppSidebar({ userRole }: SidebarProps) {
                 className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-semibold transition-all shadow-2xs ${
                   pathname === "/admin"
                     ? "bg-[#B4461B] text-white font-bold hover:bg-[#9A3412]"
-                    : "text-stone-600 hover:text-stone-900 hover:bg-stone-100/70"
+                    : "text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100 hover:bg-stone-100/70 dark:hover:bg-stone-800/70"
                 }`}
                 title="Panel de Administración (RBAC)"
               >
@@ -113,12 +113,12 @@ export function AppSidebar({ userRole }: SidebarProps) {
                 href="/admin/grupos"
                 className={`flex items-center gap-3 px-3 py-2 rounded-xl text-xs font-semibold transition-all ${
                   pathname.startsWith("/admin/grupos")
-                    ? "bg-[#FFF1EB] text-[#C2410C] font-bold border border-[#FDE0D4]"
-                    : "text-stone-600 hover:text-stone-900 hover:bg-stone-100/70"
+                    ? "bg-[#FFF1EB] dark:bg-orange-950/40 text-[#C2410C] dark:text-orange-400 font-bold border border-[#FDE0D4] dark:border-orange-900/50"
+                    : "text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100 hover:bg-stone-100/70 dark:hover:bg-stone-800/70"
                 }`}
                 title="Grupos y Áreas de Soporte"
               >
-                <Layers className="w-4 h-4 shrink-0 text-[#C2410C]" />
+                <Layers className="w-4 h-4 shrink-0 text-[#C2410C] dark:text-orange-400" />
                 {!isCollapsed && <span>Grupos y Áreas</span>}
               </Link>
 
@@ -127,12 +127,12 @@ export function AppSidebar({ userRole }: SidebarProps) {
                 href="/admin/auditoria"
                 className={`flex items-center gap-3 px-3 py-2 rounded-xl text-xs font-semibold transition-all ${
                   pathname.startsWith("/admin/auditoria")
-                    ? "bg-[#FFF1EB] text-[#C2410C] font-bold border border-[#FDE0D4]"
-                    : "text-stone-600 hover:text-stone-900 hover:bg-stone-100/70"
+                    ? "bg-[#FFF1EB] dark:bg-orange-950/40 text-[#C2410C] dark:text-orange-400 font-bold border border-[#FDE0D4] dark:border-orange-900/50"
+                    : "text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100 hover:bg-stone-100/70 dark:hover:bg-stone-800/70"
                 }`}
                 title="Auditoría Global de Tickets"
               >
-                <Clock className="w-4 h-4 shrink-0 text-[#C2410C]" />
+                <Clock className="w-4 h-4 shrink-0 text-[#C2410C] dark:text-orange-400" />
                 {!isCollapsed && <span>Auditoría de Tickets</span>}
               </Link>
 
@@ -141,12 +141,12 @@ export function AppSidebar({ userRole }: SidebarProps) {
                 href="/admin/usuarios"
                 className={`flex items-center gap-3 px-3 py-2 rounded-xl text-xs font-semibold transition-all ${
                   pathname.startsWith("/admin/usuarios")
-                    ? "bg-[#FFF1EB] text-[#C2410C] font-bold border border-[#FDE0D4]"
-                    : "text-stone-600 hover:text-stone-900 hover:bg-stone-100/70"
+                    ? "bg-[#FFF1EB] dark:bg-orange-950/40 text-[#C2410C] dark:text-orange-400 font-bold border border-[#FDE0D4] dark:border-orange-900/50"
+                    : "text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100 hover:bg-stone-100/70 dark:hover:bg-stone-800/70"
                 }`}
                 title="Usuarios y Asignación de Roles"
               >
-                <Users className="w-4 h-4 shrink-0 text-[#C2410C]" />
+                <Users className="w-4 h-4 shrink-0 text-[#C2410C] dark:text-orange-400" />
                 {!isCollapsed && <span>Usuarios y Roles</span>}
               </Link>
             </nav>

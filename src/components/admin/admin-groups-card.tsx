@@ -73,29 +73,29 @@ export function AdminGroupsCard({ groups, allowDelete = true }: AdminGroupsCardP
   };
 
   return (
-    <div id="groups" className="bg-white border border-[#F0E7E1] rounded-2xl p-5 shadow-2xs flex flex-col justify-between">
+    <div className="bg-white dark:bg-stone-900 border border-[#F0E7E1] dark:border-stone-800 rounded-2xl p-5 shadow-2xs flex flex-col justify-between transition-colors">
       <div>
-        {/* Cabecera de la sección */}
-        <div className="flex items-center justify-between pb-3.5 border-b border-stone-100">
-          <h2 className="text-sm font-bold text-stone-900 flex items-center gap-2">
-            <Layers className="w-4 h-4 text-[#C2410C]" />
+        {/* Cabecera */}
+        <div className="flex items-center justify-between pb-3.5 border-b border-stone-100 dark:border-stone-800">
+          <h2 className="text-sm font-bold text-stone-900 dark:text-stone-100 flex items-center gap-2">
+            <Layers className="w-4 h-4 text-[#C2410C] dark:text-orange-400" />
             <span>Grupos y Áreas de Soporte</span>
           </h2>
-          <span className="bg-stone-100 text-stone-600 text-[11px] font-semibold px-2 py-0.5 rounded-full">
+          <span className="bg-stone-100 dark:bg-stone-800 text-stone-600 dark:text-stone-400 text-[11px] font-semibold px-2 py-0.5 rounded-full border border-stone-200 dark:border-stone-700">
             {groups.length} configuradas
           </span>
         </div>
 
         {/* Mensaje de error general si ocurre */}
         {actionError && (
-          <div className="my-3 bg-red-50 border border-red-200 rounded-xl p-3 text-red-700 text-xs flex items-start gap-2.5">
+          <div className="my-3 bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-900/50 rounded-xl p-3 text-red-700 dark:text-red-400 text-xs flex items-start gap-2.5">
             <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
             <div className="flex-1">
               <span>{actionError}</span>
             </div>
             <button
               onClick={() => setActionError(null)}
-              className="text-stone-400 hover:text-stone-600"
+              className="text-stone-400 hover:text-stone-600 dark:hover:text-stone-300"
             >
               <X className="w-3.5 h-3.5" />
             </button>
@@ -109,13 +109,13 @@ export function AdminGroupsCard({ groups, allowDelete = true }: AdminGroupsCardP
             name="name"
             required
             placeholder="Nombre de nueva área..."
-            className="flex-1 bg-stone-50 border border-stone-200 rounded-xl px-3 py-2 text-xs text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#C2410C] focus:bg-white"
+            className="flex-1 bg-stone-50 dark:bg-stone-800 border border-stone-200 dark:border-stone-700 rounded-xl px-3 py-2 text-xs text-stone-900 dark:text-stone-100 placeholder-stone-400 dark:placeholder-stone-500 focus:outline-none focus:ring-2 focus:ring-[#C2410C] focus:bg-white dark:focus:bg-stone-800"
           />
           <input
             type="text"
             name="description"
             placeholder="Descripción breve..."
-            className="flex-1 bg-stone-50 border border-stone-200 rounded-xl px-3 py-2 text-xs text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#C2410C] focus:bg-white"
+            className="flex-1 bg-stone-50 dark:bg-stone-800 border border-stone-200 dark:border-stone-700 rounded-xl px-3 py-2 text-xs text-stone-900 dark:text-stone-100 placeholder-stone-400 dark:placeholder-stone-500 focus:outline-none focus:ring-2 focus:ring-[#C2410C] focus:bg-white dark:focus:bg-stone-800"
           />
           <button
             type="submit"
@@ -134,9 +134,9 @@ export function AdminGroupsCard({ groups, allowDelete = true }: AdminGroupsCardP
         </form>
 
         {/* Lista de Grupos */}
-        <div className="divide-y divide-stone-100 min-h-[260px]">
+        <div className="divide-y divide-stone-100 dark:divide-stone-800 min-h-[260px]">
           {groups.length === 0 ? (
-            <p className="text-xs text-stone-400 py-8 text-center">No hay áreas configuradas aún.</p>
+            <p className="text-xs text-stone-400 dark:text-stone-500 py-8 text-center">No hay áreas configuradas aún.</p>
           ) : (
             currentGroups.map((g) => {
               const isDev = g.name.toLowerCase().includes("desarrollo");
@@ -149,7 +149,7 @@ export function AdminGroupsCard({ groups, allowDelete = true }: AdminGroupsCardP
               return (
                 <div key={g.id} className="py-2.5 flex items-center justify-between gap-3 group/item">
                   <div className="flex items-center gap-3 min-w-0">
-                    <div className="w-8 h-8 rounded-xl bg-[#FFF1EB] text-[#C2410C] flex items-center justify-center shrink-0">
+                    <div className="w-8 h-8 rounded-xl bg-[#FFF1EB] dark:bg-orange-950/40 text-[#C2410C] dark:text-orange-400 flex items-center justify-center shrink-0">
                       {isDev ? (
                         <Code className="w-4 h-4" />
                       ) : isInfra ? (
@@ -159,18 +159,18 @@ export function AdminGroupsCard({ groups, allowDelete = true }: AdminGroupsCardP
                       )}
                     </div>
                     <div className="truncate">
-                      <h4 className="text-xs sm:text-sm font-bold text-stone-800 truncate">{g.name}</h4>
-                      <p className="text-[11px] text-stone-500 line-clamp-1">
+                      <h4 className="text-xs sm:text-sm font-bold text-stone-800 dark:text-stone-200 truncate">{g.name}</h4>
+                      <p className="text-[11px] text-stone-500 dark:text-stone-400 line-clamp-1">
                         {g.description || "Área operativa de soporte"}
                       </p>
                     </div>
                   </div>
 
                   <div className="flex items-center gap-2 shrink-0">
-                    <span className="bg-[#FFF1EB] text-[#C2410C] text-[10px] font-bold px-2 py-0.5 rounded-full">
+                    <span className="bg-[#FFF1EB] dark:bg-orange-950/40 text-[#C2410C] dark:text-orange-400 text-[10px] font-bold px-2 py-0.5 rounded-full border border-[#FDE0D4] dark:border-orange-900/50">
                       {g._count.members} miembros
                     </span>
-                    <span className="bg-[#FFF1EB] text-[#C2410C] text-[10px] font-bold px-2 py-0.5 rounded-full">
+                    <span className="bg-[#FFF1EB] dark:bg-orange-950/40 text-[#C2410C] dark:text-orange-400 text-[10px] font-bold px-2 py-0.5 rounded-full border border-[#FDE0D4] dark:border-orange-900/50">
                       {g._count.tickets} tickets
                     </span>
 
@@ -182,7 +182,7 @@ export function AdminGroupsCard({ groups, allowDelete = true }: AdminGroupsCardP
                           setActionError(null);
                           setGroupToDelete(g);
                         }}
-                        className="p-1.5 text-stone-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors border border-transparent hover:border-red-100"
+                        className="p-1.5 text-stone-400 hover:text-red-600 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/40 rounded-lg transition-colors border border-transparent hover:border-red-100 dark:hover:border-red-900/40"
                         title={
                           hasTickets
                             ? `Tiene ${g._count.tickets} ticket(s) asociados`
@@ -212,9 +212,9 @@ export function AdminGroupsCard({ groups, allowDelete = true }: AdminGroupsCardP
       </div>
 
       {/* Pie de tarjeta */}
-      <div className="pt-3.5 mt-2 border-t border-stone-100 flex items-center justify-between text-[11px] text-stone-500">
+      <div className="pt-3.5 mt-2 border-t border-stone-100 dark:border-stone-800 flex items-center justify-between text-[11px] text-stone-500 dark:text-stone-400">
         <span>Áreas operativas con enrutamiento automático activo</span>
-        <Link href="/admin/grupos" className="text-[#C2410C] font-semibold hover:underline">
+        <Link href="/admin/grupos" className="text-[#C2410C] dark:text-orange-400 font-semibold hover:underline">
           Administrar áreas completas →
         </Link>
       </div>
@@ -222,40 +222,40 @@ export function AdminGroupsCard({ groups, allowDelete = true }: AdminGroupsCardP
       {/* Modal de Confirmación para Eliminar Grupo */}
       {groupToDelete && (
         <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-2xs flex items-center justify-center p-4">
-          <div className="bg-white border border-stone-200 rounded-2xl w-full max-w-md p-6 shadow-2xl relative">
+          <div className="bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 rounded-2xl w-full max-w-md p-6 shadow-2xl relative text-stone-900 dark:text-stone-100">
             <button
               onClick={() => setGroupToDelete(null)}
-              className="absolute top-4 right-4 text-stone-400 hover:text-stone-700 p-1 rounded-lg"
+              className="absolute top-4 right-4 text-stone-400 hover:text-stone-700 dark:hover:text-stone-200 p-1 rounded-lg transition-colors"
             >
               <X className="w-5 h-5" />
             </button>
 
             <div className="flex items-center gap-3 mb-3">
-              <div className="w-10 h-10 rounded-xl bg-red-100 text-red-600 flex items-center justify-center shrink-0">
+              <div className="w-10 h-10 rounded-xl bg-red-100 dark:bg-red-950/50 text-red-600 dark:text-red-400 flex items-center justify-center shrink-0">
                 <Trash2 className="w-5 h-5" />
               </div>
               <div>
-                <h3 className="text-base font-bold text-stone-900">¿Eliminar Área de Soporte?</h3>
-                <p className="text-xs text-stone-500">
+                <h3 className="text-base font-bold text-stone-900 dark:text-stone-100">¿Eliminar Área de Soporte?</h3>
+                <p className="text-xs text-stone-500 dark:text-stone-400">
                   Esta acción desvinculará a sus miembros registrados.
                 </p>
               </div>
             </div>
 
-            <div className="p-3.5 bg-stone-50 rounded-xl border border-stone-200 my-4 text-xs space-y-1.5">
+            <div className="p-3.5 bg-stone-50 dark:bg-stone-800/60 rounded-xl border border-stone-200 dark:border-stone-700 my-4 text-xs space-y-1.5">
               <div className="flex items-center justify-between">
-                <span className="text-stone-500">Área seleccionada:</span>
-                <span className="font-bold text-stone-800">{groupToDelete.name}</span>
+                <span className="text-stone-500 dark:text-stone-400">Área seleccionada:</span>
+                <span className="font-bold text-stone-800 dark:text-stone-200">{groupToDelete.name}</span>
               </div>
               <div className="flex items-center justify-between">
-                <span className="text-stone-500">Miembros asociados:</span>
-                <span className="font-semibold text-stone-700">{groupToDelete._count.members} colaboradores</span>
+                <span className="text-stone-500 dark:text-stone-400">Miembros asociados:</span>
+                <span className="font-semibold text-stone-700 dark:text-stone-300">{groupToDelete._count.members} colaboradores</span>
               </div>
               <div className="flex items-center justify-between">
-                <span className="text-stone-500">Tickets vigentes:</span>
+                <span className="text-stone-500 dark:text-stone-400">Tickets vigentes:</span>
                 <span
                   className={`font-bold ${
-                    groupToDelete._count.tickets > 0 ? "text-amber-600" : "text-emerald-600"
+                    groupToDelete._count.tickets > 0 ? "text-amber-600 dark:text-amber-400" : "text-emerald-600 dark:text-emerald-400"
                   }`}
                 >
                   {groupToDelete._count.tickets} tickets
@@ -264,19 +264,19 @@ export function AdminGroupsCard({ groups, allowDelete = true }: AdminGroupsCardP
             </div>
 
             {groupToDelete._count.tickets > 0 && (
-              <div className="mb-4 bg-amber-50 border border-amber-200 rounded-xl p-3 text-amber-800 text-xs flex items-start gap-2.5">
-                <AlertTriangle className="w-4 h-4 shrink-0 mt-0.5 text-amber-600" />
+              <div className="mb-4 bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-900/50 rounded-xl p-3 text-amber-800 dark:text-amber-300 text-xs flex items-start gap-2.5">
+                <AlertTriangle className="w-4 h-4 shrink-0 mt-0.5 text-amber-600 dark:text-amber-400" />
                 <span>
                   <strong>Aviso de restricción:</strong> Esta área contiene tickets asignados. La base de datos no permitirá eliminarla hasta que los tickets sean derivados o reasignados a otra área.
                 </span>
               </div>
             )}
 
-            <div className="flex justify-end gap-2.5 pt-3 border-t border-stone-100">
+            <div className="flex justify-end gap-2.5 pt-3 border-t border-stone-100 dark:border-stone-800">
               <button
                 type="button"
                 onClick={() => setGroupToDelete(null)}
-                className="px-4 py-2 rounded-xl text-xs text-stone-600 hover:text-stone-900 hover:bg-stone-100 font-medium"
+                className="px-4 py-2 rounded-xl text-xs text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100 hover:bg-stone-100 dark:hover:bg-stone-800 font-medium transition-colors"
               >
                 Cancelar
               </button>

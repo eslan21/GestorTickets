@@ -13,7 +13,6 @@ import { TicketStatus } from "@prisma/client";
 import {
   ArrowRightLeft,
   UserCheck,
-  CheckCircle2,
   AlertCircle,
   X,
   UserPlus,
@@ -146,11 +145,11 @@ export function TicketActionsBar({
             setShowAssignModal(true);
           }}
           disabled={isPending}
-          className="bg-white hover:bg-stone-50 text-stone-700 px-3.5 py-2 rounded-xl text-xs font-semibold flex items-center gap-2 border border-stone-300 shadow-2xs transition-colors disabled:opacity-50"
+          className="bg-white dark:bg-stone-900 hover:bg-stone-50 dark:hover:bg-stone-800 text-stone-700 dark:text-stone-300 px-3.5 py-2 rounded-xl text-xs font-semibold flex items-center gap-2 border border-stone-300 dark:border-stone-700 shadow-2xs transition-colors disabled:opacity-50"
         >
-          <UserPlus className="w-4 h-4 text-[#C2410C]" />
+          <UserPlus className="w-4 h-4 text-[#C2410C] dark:text-orange-400" />
           <span>Asignar Técnico</span>
-          <span className="text-[11px] text-stone-500 font-normal">({assignedUserName})</span>
+          <span className="text-[11px] text-stone-500 dark:text-stone-400 font-normal">({assignedUserName})</span>
         </button>
       ) : (
         /* Si no es Admin pero pertenece al grupo y no está asignado a él */
@@ -158,16 +157,16 @@ export function TicketActionsBar({
           <button
             onClick={handleAssignToSelf}
             disabled={isPending}
-            className="bg-white hover:bg-stone-50 text-stone-700 px-3.5 py-2 rounded-xl text-xs font-semibold flex items-center gap-2 border border-stone-300 shadow-2xs transition-colors disabled:opacity-50"
+            className="bg-white dark:bg-stone-900 hover:bg-stone-50 dark:hover:bg-stone-800 text-stone-700 dark:text-stone-300 px-3.5 py-2 rounded-xl text-xs font-semibold flex items-center gap-2 border border-stone-300 dark:border-stone-700 shadow-2xs transition-colors disabled:opacity-50"
           >
-            <UserCheck className="w-4 h-4 text-emerald-600" />
+            <UserCheck className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
             <span>Asignármelo a mí</span>
           </button>
         )
       )}
 
       {/* Selector de Estado */}
-      <div className="flex items-center gap-1 bg-stone-100/90 border border-stone-200/90 rounded-xl p-1">
+      <div className="flex items-center gap-1 bg-stone-100/90 dark:bg-stone-800/90 border border-stone-200/90 dark:border-stone-700/90 rounded-xl p-1">
         {(["OPEN", "IN_PROGRESS", "RESOLVED", "CLOSED"] as TicketStatus[]).map((st) => (
           <button
             key={st}
@@ -175,8 +174,8 @@ export function TicketActionsBar({
             onClick={() => handleStatusChange(st)}
             className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
               currentStatus === st
-                ? "bg-white text-stone-900 shadow-2xs border border-stone-200"
-                : "text-stone-500 hover:text-stone-800"
+                ? "bg-white dark:bg-stone-900 text-stone-900 dark:text-stone-100 shadow-2xs border border-stone-200 dark:border-stone-700"
+                : "text-stone-500 dark:text-stone-400 hover:text-stone-800 dark:hover:text-stone-200"
             }`}
           >
             {st === "OPEN"
@@ -199,33 +198,33 @@ export function TicketActionsBar({
           setShowDeriveModal(true);
         }}
         disabled={isPending}
-        className="bg-[#FFF1EB] hover:bg-[#FEE4D6] text-[#C2410C] border border-[#FDE0D4] px-3.5 py-2 rounded-xl text-xs font-semibold flex items-center gap-2 transition-colors disabled:opacity-50 shadow-2xs"
+        className="bg-[#FFF1EB] dark:bg-orange-950/40 hover:bg-[#FEE4D6] dark:hover:bg-orange-900/50 text-[#C2410C] dark:text-orange-400 border border-[#FDE0D4] dark:border-orange-900/50 px-3.5 py-2 rounded-xl text-xs font-semibold flex items-center gap-2 transition-colors disabled:opacity-50 shadow-2xs"
       >
-        <ArrowRightLeft className="w-4 h-4 text-[#C2410C]" />
+        <ArrowRightLeft className="w-4 h-4 text-[#C2410C] dark:text-orange-400" />
         <span>Derivar Área</span>
       </button>
 
       {/* Modal de Asignación a Técnico Específico (ADMIN) */}
       {showAssignModal && (
         <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-2xs flex items-center justify-center p-4">
-          <div className="bg-white border border-stone-200 rounded-2xl w-full max-w-md p-6 shadow-2xl relative">
+          <div className="bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 rounded-2xl w-full max-w-md p-6 shadow-2xl relative text-stone-900 dark:text-stone-100">
             <button
               onClick={() => setShowAssignModal(false)}
-              className="absolute top-4 right-4 text-stone-400 hover:text-stone-700"
+              className="absolute top-4 right-4 text-stone-400 hover:text-stone-700 dark:hover:text-stone-200 transition-colors"
             >
               <X className="w-5 h-5" />
             </button>
 
-            <h3 className="text-base font-bold text-stone-900 flex items-center gap-2 mb-1">
-              <Users className="w-5 h-5 text-[#C2410C]" />
+            <h3 className="text-base font-bold text-stone-900 dark:text-stone-100 flex items-center gap-2 mb-1">
+              <Users className="w-5 h-5 text-[#C2410C] dark:text-orange-400" />
               Asignar Ticket a un Colaborador
             </h3>
-            <p className="text-xs text-stone-500 mb-4">
+            <p className="text-xs text-stone-500 dark:text-stone-400 mb-4">
               Selecciona al técnico responsable para este ticket. Esta acción quedará auditada en el chat.
             </p>
 
             {assignError && (
-              <div className="mb-4 bg-red-50 border border-red-200 rounded-xl p-3 text-red-600 text-xs flex items-center gap-2">
+              <div className="mb-4 bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-900/50 rounded-xl p-3 text-red-600 dark:text-red-400 text-xs flex items-center gap-2">
                 <AlertCircle className="w-4 h-4 shrink-0" />
                 <span>{assignError}</span>
               </div>
@@ -233,17 +232,17 @@ export function TicketActionsBar({
 
             <form onSubmit={handleAssignSubmit} className="space-y-4">
               <div>
-                <label className="block text-xs font-semibold text-stone-700 mb-1.5">
+                <label className="block text-xs font-semibold text-stone-700 dark:text-stone-300 mb-1.5">
                   Técnico Responsable
                 </label>
                 <select
                   value={selectedUserId}
                   onChange={(e) => setSelectedUserId(e.target.value)}
-                  className="w-full bg-stone-50 border border-stone-300 rounded-xl px-3.5 py-2.5 text-sm text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#C2410C] focus:bg-white"
+                  className="w-full bg-stone-50 dark:bg-stone-800 border border-stone-300 dark:border-stone-700 rounded-xl px-3.5 py-2.5 text-sm text-stone-900 dark:text-stone-100 focus:outline-none focus:ring-2 focus:ring-[#C2410C] focus:bg-white dark:focus:bg-stone-800 transition-colors"
                 >
-                  <option value="">-- Sin asignar --</option>
+                  <option value="" className="dark:bg-stone-900">-- Sin asignar --</option>
                   {allUsers.map((u) => (
-                    <option key={u.id} value={u.id}>
+                    <option key={u.id} value={u.id} className="dark:bg-stone-900">
                       {u.name} ({u.role === "ADMIN" ? "Admin" : "Técnico"}) - {u.email}
                     </option>
                   ))}
@@ -254,14 +253,14 @@ export function TicketActionsBar({
                 <button
                   type="button"
                   onClick={() => setShowAssignModal(false)}
-                  className="px-4 py-2 rounded-xl text-sm text-stone-600 hover:text-stone-900 hover:bg-stone-100 font-medium"
+                  className="px-4 py-2 rounded-xl text-sm text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100 hover:bg-stone-100 dark:hover:bg-stone-800 font-medium transition-colors"
                 >
                   Cancelar
                 </button>
                 <button
                   type="submit"
                   disabled={isPending}
-                  className="bg-[#C2410C] hover:bg-[#9A3412] text-white px-4 py-2 rounded-xl text-sm font-semibold disabled:opacity-50 shadow-xs"
+                  className="bg-[#C2410C] hover:bg-[#9A3412] text-white px-4 py-2 rounded-xl text-sm font-semibold disabled:opacity-50 shadow-xs transition-colors"
                 >
                   {isPending ? "Guardando..." : "Guardar Asignación"}
                 </button>
@@ -274,24 +273,24 @@ export function TicketActionsBar({
       {/* Modal de Derivación */}
       {showDeriveModal && (
         <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-2xs flex items-center justify-center p-4">
-          <div className="bg-white border border-stone-200 rounded-2xl w-full max-w-md p-6 shadow-2xl relative">
+          <div className="bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 rounded-2xl w-full max-w-md p-6 shadow-2xl relative text-stone-900 dark:text-stone-100">
             <button
               onClick={() => setShowDeriveModal(false)}
-              className="absolute top-4 right-4 text-stone-400 hover:text-stone-700"
+              className="absolute top-4 right-4 text-stone-400 hover:text-stone-700 dark:hover:text-stone-200 transition-colors"
             >
               <X className="w-5 h-5" />
             </button>
 
-            <h3 className="text-base font-bold text-stone-900 flex items-center gap-2 mb-1">
-              <ArrowRightLeft className="w-5 h-5 text-[#C2410C]" />
+            <h3 className="text-base font-bold text-stone-900 dark:text-stone-100 flex items-center gap-2 mb-1">
+              <ArrowRightLeft className="w-5 h-5 text-[#C2410C] dark:text-orange-400" />
               Derivar Ticket a otra Área
             </h3>
-            <p className="text-xs text-stone-500 mb-4">
+            <p className="text-xs text-stone-500 dark:text-stone-400 mb-4">
               Esta acción transferirá la responsabilidad del ticket y dejará un registro inmutable en el chat interno.
             </p>
 
             {deriveError && (
-              <div className="mb-4 bg-red-50 border border-red-200 rounded-xl p-3 text-red-600 text-xs flex items-center gap-2">
+              <div className="mb-4 bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-900/50 rounded-xl p-3 text-red-600 dark:text-red-400 text-xs flex items-center gap-2">
                 <AlertCircle className="w-4 h-4 shrink-0" />
                 <span>{deriveError}</span>
               </div>
@@ -299,16 +298,16 @@ export function TicketActionsBar({
 
             <form onSubmit={handleDeriveSubmit} className="space-y-4">
               <div>
-                <label className="block text-xs font-semibold text-stone-700 mb-1.5">
+                <label className="block text-xs font-semibold text-stone-700 dark:text-stone-300 mb-1.5">
                   Grupo / Área Destino
                 </label>
                 <select
                   value={targetGroupId}
                   onChange={(e) => setTargetGroupId(e.target.value)}
-                  className="w-full bg-stone-50 border border-stone-300 rounded-xl px-3.5 py-2.5 text-sm text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#C2410C] focus:bg-white"
+                  className="w-full bg-stone-50 dark:bg-stone-800 border border-stone-300 dark:border-stone-700 rounded-xl px-3.5 py-2.5 text-sm text-stone-900 dark:text-stone-100 focus:outline-none focus:ring-2 focus:ring-[#C2410C] focus:bg-white dark:focus:bg-stone-800 transition-colors"
                 >
                   {availableTargetGroups.map((g) => (
-                    <option key={g.id} value={g.id}>
+                    <option key={g.id} value={g.id} className="dark:bg-stone-900">
                       {g.name}
                     </option>
                   ))}
@@ -316,7 +315,7 @@ export function TicketActionsBar({
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-stone-700 mb-1.5">
+                <label className="block text-xs font-semibold text-stone-700 dark:text-stone-300 mb-1.5">
                   Motivo de la Derivación (Requerido)
                 </label>
                 <textarea
@@ -325,7 +324,7 @@ export function TicketActionsBar({
                   value={deriveReason}
                   onChange={(e) => setDeriveReason(e.target.value)}
                   placeholder="Explica detalladamente por qué se transfiere el ticket a este grupo..."
-                  className="w-full bg-stone-50 border border-stone-300 rounded-xl px-3.5 py-2 text-sm text-stone-900 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-[#C2410C] focus:bg-white"
+                  className="w-full bg-stone-50 dark:bg-stone-800 border border-stone-300 dark:border-stone-700 rounded-xl px-3.5 py-2 text-sm text-stone-900 dark:text-stone-100 placeholder-stone-400 dark:placeholder-stone-500 focus:outline-none focus:ring-2 focus:ring-[#C2410C] focus:bg-white dark:focus:bg-stone-800 transition-colors"
                 />
               </div>
 
@@ -333,14 +332,14 @@ export function TicketActionsBar({
                 <button
                   type="button"
                   onClick={() => setShowDeriveModal(false)}
-                  className="px-4 py-2 rounded-xl text-sm text-stone-600 hover:text-stone-900 hover:bg-stone-100 font-medium"
+                  className="px-4 py-2 rounded-xl text-sm text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100 hover:bg-stone-100 dark:hover:bg-stone-800 font-medium transition-colors"
                 >
                   Cancelar
                 </button>
                 <button
                   type="submit"
                   disabled={isPending || !deriveReason.trim()}
-                  className="bg-[#C2410C] hover:bg-[#9A3412] text-white px-4 py-2 rounded-xl text-sm font-semibold disabled:opacity-50 shadow-xs"
+                  className="bg-[#C2410C] hover:bg-[#9A3412] text-white px-4 py-2 rounded-xl text-sm font-semibold disabled:opacity-50 shadow-xs transition-colors"
                 >
                   {isPending ? "Derivando..." : "Confirmar Derivación"}
                 </button>

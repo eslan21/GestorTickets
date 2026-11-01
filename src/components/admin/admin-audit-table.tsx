@@ -3,7 +3,7 @@
 
 import React, { useState, useMemo } from "react";
 import Link from "next/link";
-import { Clock, Search, Download, Ticket, ArrowUpRight, Filter } from "lucide-react";
+import { Clock, Search, Download, Ticket, ArrowUpRight } from "lucide-react";
 import { TicketStatus, TicketPriority } from "@prisma/client";
 import { TicketStatusBadge, TicketPriorityBadge } from "@/components/tickets/ticket-badges";
 import { PaginationControl } from "@/components/ui/pagination-control";
@@ -60,50 +60,52 @@ export function AdminAuditTable({ tickets }: AdminAuditTableProps) {
   const handleExportCSV = () => {
     const headers = [
       "ID",
-      "Título",
+      "Titulo",
       "Estado",
       "Prioridad",
-      "Grupo",
+      "Area Responsable",
+      "Tecnico Asignado",
       "Creado Por",
-      "Asignado A",
-      "Fecha Creación",
-      "Última Actualización",
+      "Fecha Creacion",
+      "Ultima Actualizacion",
     ];
     const rows = filteredTickets.map((t) => [
-      t.id,
+      `"${t.id}"`,
       `"${t.title.replace(/"/g, '""')}"`,
-      t.status,
-      t.priority,
+      `"${t.status}"`,
+      `"${t.priority}"`,
       `"${t.group.name.replace(/"/g, '""')}"`,
-      `"${t.createdBy.name}"`,
-      `"${t.assignedTo ? t.assignedTo.name : "Sin asignar"}"`,
-      new Date(t.createdAt).toLocaleString("es-ES"),
-      new Date(t.updatedAt).toLocaleString("es-ES"),
+      `"${t.assignedTo ? t.assignedTo.name.replace(/"/g, '""') : "Sin asignar"}"`,
+      `"${t.createdBy.name.replace(/"/g, '""')}"`,
+      `"${new Date(t.createdAt).toISOString()}"`,
+      `"${new Date(t.updatedAt).toISOString()}"`,
     ]);
-
     const csvContent =
       "data:text/csv;charset=utf-8," +
       [headers.join(","), ...rows.map((e) => e.join(","))].join("\n");
     const encodedUri = encodeURI(csvContent);
     const link = document.createElement("a");
     link.setAttribute("href", encodedUri);
-    link.setAttribute("download", `auditoria_tickets_${new Date().toISOString().slice(0, 10)}.csv`);
+    link.setAttribute(
+      "download",
+      `auditoria_tickets_${new Date().toISOString().slice(0, 10)}.csv`
+    );
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
   };
 
   return (
-    <div className="bg-white border border-[#F0E7E1] rounded-2xl p-5 shadow-2xs space-y-4">
-      {/* Controles de Filtros y Búsqueda */}
-      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-3 pb-3 border-b border-stone-100">
+    <div className="bg-white dark:bg-stone-900 border border-[#F0E7E1] dark:border-stone-800 rounded-2xl p-5 shadow-2xs space-y-4 transition-colors">
+      {/* Cabecera y Barra de Filtros */}
+      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-3 border-b border-stone-100 dark:border-stone-800">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-[#FFF1EB] text-[#C2410C] flex items-center justify-center shrink-0">
+          <div className="w-10 h-10 rounded-xl bg-[#FFF1EB] dark:bg-orange-950/40 text-[#C2410C] dark:text-orange-400 flex items-center justify-center shrink-0">
             <Clock className="w-5 h-5" />
           </div>
           <div>
-            <h2 className="text-base font-bold text-stone-900">Registro de Auditoría de Tickets</h2>
-            <p className="text-xs text-stone-500">
+            <h2 className="text-base font-bold text-stone-900 dark:text-stone-100">Registro de Auditoría de Tickets</h2>
+            <p className="text-xs text-stone-500 dark:text-stone-400">
               Trazabilidad cronológica completa de todas las incidencias y transferencias en el sistema.
             </p>
           </div>
@@ -112,7 +114,7 @@ export function AdminAuditTable({ tickets }: AdminAuditTableProps) {
         <div className="flex flex-wrap items-center gap-2">
           {/* Búsqueda */}
           <div className="relative">
-            <Search className="w-3.5 h-3.5 text-stone-400 absolute left-3 top-1/2 -translate-y-1/2" />
+            <Search className="w-3.5 h-3.5 text-stone-400 dark:text-stone-500 absolute left-3 top-1/2 -translate-y-1/2" />
             <input
               type="text"
               value={searchQuery}
@@ -121,7 +123,7 @@ export function AdminAuditTable({ tickets }: AdminAuditTableProps) {
                 setCurrentPage(1);
               }}
               placeholder="Buscar por título, área, técnico..."
-              className="bg-stone-50 border border-stone-200 rounded-xl pl-9 pr-3 py-1.5 text-xs text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-[#C2410C] focus:bg-white transition-all w-52 sm:w-64"
+              className="bg-stone-50 dark:bg-stone-800 border border-stone-200 dark:border-stone-700 rounded-xl pl-9 pr-3 py-1.5 text-xs text-stone-800 dark:text-stone-100 placeholder-stone-400 dark:placeholder-stone-500 focus:outline-none focus:ring-2 focus:ring-[#C2410C] focus:bg-white dark:focus:bg-stone-800 transition-all w-52 sm:w-64"
             />
           </div>
 
@@ -132,13 +134,13 @@ export function AdminAuditTable({ tickets }: AdminAuditTableProps) {
               setStatusFilter(e.target.value);
               setCurrentPage(1);
             }}
-            className="bg-stone-50 border border-stone-200 rounded-xl px-2.5 py-1.5 text-xs text-stone-700 focus:outline-none focus:ring-2 focus:ring-[#C2410C]"
+            className="bg-stone-50 dark:bg-stone-800 border border-stone-200 dark:border-stone-700 rounded-xl px-2.5 py-1.5 text-xs text-stone-700 dark:text-stone-300 focus:outline-none focus:ring-2 focus:ring-[#C2410C]"
           >
-            <option value="ALL">Todos los Estados</option>
-            <option value="OPEN">Abierto</option>
-            <option value="IN_PROGRESS">En Progreso</option>
-            <option value="RESOLVED">Resuelto</option>
-            <option value="CLOSED">Cerrado</option>
+            <option value="ALL" className="dark:bg-stone-900">Todos los Estados</option>
+            <option value="OPEN" className="dark:bg-stone-900">Abierto</option>
+            <option value="IN_PROGRESS" className="dark:bg-stone-900">En Progreso</option>
+            <option value="RESOLVED" className="dark:bg-stone-900">Resuelto</option>
+            <option value="CLOSED" className="dark:bg-stone-900">Cerrado</option>
           </select>
 
           {/* Filtro Prioridad */}
@@ -148,20 +150,20 @@ export function AdminAuditTable({ tickets }: AdminAuditTableProps) {
               setPriorityFilter(e.target.value);
               setCurrentPage(1);
             }}
-            className="bg-stone-50 border border-stone-200 rounded-xl px-2.5 py-1.5 text-xs text-stone-700 focus:outline-none focus:ring-2 focus:ring-[#C2410C]"
+            className="bg-stone-50 dark:bg-stone-800 border border-stone-200 dark:border-stone-700 rounded-xl px-2.5 py-1.5 text-xs text-stone-700 dark:text-stone-300 focus:outline-none focus:ring-2 focus:ring-[#C2410C]"
           >
-            <option value="ALL">Todas las Prioridades</option>
-            <option value="LOW">Baja</option>
-            <option value="MEDIUM">Media</option>
-            <option value="HIGH">Alta</option>
-            <option value="CRITICAL">Crítica</option>
+            <option value="ALL" className="dark:bg-stone-900">Todas las Prioridades</option>
+            <option value="LOW" className="dark:bg-stone-900">Baja</option>
+            <option value="MEDIUM" className="dark:bg-stone-900">Media</option>
+            <option value="HIGH" className="dark:bg-stone-900">Alta</option>
+            <option value="CRITICAL" className="dark:bg-stone-900">Crítica</option>
           </select>
 
           {/* Exportar */}
           <button
             type="button"
             onClick={handleExportCSV}
-            className="p-2 border border-stone-200 rounded-xl text-stone-500 hover:text-stone-800 hover:bg-stone-50 shadow-2xs transition-colors"
+            className="p-2 border border-stone-200 dark:border-stone-700 rounded-xl text-stone-500 dark:text-stone-400 hover:text-stone-800 dark:hover:text-stone-200 hover:bg-stone-50 dark:hover:bg-stone-800 shadow-2xs transition-colors"
             title="Exportar auditoría a CSV"
           >
             <Download className="w-4 h-4" />
@@ -172,7 +174,7 @@ export function AdminAuditTable({ tickets }: AdminAuditTableProps) {
       {/* Tabla Completa de Auditoría */}
       <div className="overflow-x-auto min-h-[360px]">
         <table className="w-full text-left text-xs">
-          <thead className="bg-[#FAF8F6] text-stone-500 uppercase text-[10px] font-bold tracking-wider border-b border-stone-100">
+          <thead className="bg-[#FAF8F6] dark:bg-stone-800/70 text-stone-500 dark:text-stone-400 uppercase text-[10px] font-bold tracking-wider border-b border-stone-100 dark:border-stone-800">
             <tr>
               <th className="px-4 py-3">Ticket / Incidencia</th>
               <th className="px-4 py-3">Área Responsable</th>
@@ -184,37 +186,37 @@ export function AdminAuditTable({ tickets }: AdminAuditTableProps) {
               <th className="px-4 py-3 text-right">Ver</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-stone-100 text-stone-700">
+          <tbody className="divide-y divide-stone-100 dark:divide-stone-800 text-stone-700 dark:text-stone-300">
             {currentTickets.length === 0 ? (
               <tr>
-                <td colSpan={8} className="px-4 py-12 text-center text-xs text-stone-400">
+                <td colSpan={8} className="px-4 py-12 text-center text-xs text-stone-400 dark:text-stone-500">
                   No se encontraron tickets con los filtros aplicados.
                 </td>
               </tr>
             ) : (
               currentTickets.map((t) => (
-                <tr key={t.id} className="hover:bg-stone-50/70 transition-colors">
+                <tr key={t.id} className="hover:bg-stone-50/70 dark:hover:bg-stone-800/50 transition-colors">
                   <td className="px-4 py-3.5 max-w-xs">
                     <div className="flex items-center gap-2.5">
-                      <div className="w-7 h-7 rounded-lg bg-[#FFF1EB] text-[#C2410C] flex items-center justify-center shrink-0">
+                      <div className="w-7 h-7 rounded-lg bg-[#FFF1EB] dark:bg-orange-950/40 text-[#C2410C] dark:text-orange-400 flex items-center justify-center shrink-0">
                         <Ticket className="w-3.5 h-3.5" />
                       </div>
                       <div className="truncate">
                         <Link
                           href={`/dashboard/tickets/${t.id}`}
-                          className="font-bold text-stone-900 hover:text-[#C2410C] transition-colors truncate block"
+                          className="font-bold text-stone-900 dark:text-stone-100 hover:text-[#C2410C] dark:hover:text-orange-400 transition-colors truncate block"
                         >
                           {t.title}
                         </Link>
-                        <span className="text-[11px] text-stone-400 font-mono truncate block">
+                        <span className="text-[11px] text-stone-400 dark:text-stone-500 font-mono truncate block">
                           ID: #{t.id.slice(-6)}
                         </span>
                       </div>
                     </div>
                   </td>
 
-                  <td className="px-4 py-3.5 font-medium text-stone-800">
-                    <span className="bg-stone-100 px-2 py-0.5 rounded-md text-[11px] border border-stone-200">
+                  <td className="px-4 py-3.5 font-medium text-stone-800 dark:text-stone-200">
+                    <span className="bg-stone-100 dark:bg-stone-800 px-2 py-0.5 rounded-md text-[11px] border border-stone-200 dark:border-stone-700">
                       {t.group.name}
                     </span>
                   </td>
@@ -229,17 +231,17 @@ export function AdminAuditTable({ tickets }: AdminAuditTableProps) {
 
                   <td className="px-4 py-3.5">
                     {t.assignedTo ? (
-                      <span className="text-stone-800 font-medium">👤 {t.assignedTo.name}</span>
+                      <span className="text-stone-800 dark:text-stone-200 font-medium">👤 {t.assignedTo.name}</span>
                     ) : (
-                      <span className="text-stone-400 italic">Sin asignar</span>
+                      <span className="text-stone-400 dark:text-stone-500 italic">Sin asignar</span>
                     )}
                   </td>
 
-                  <td className="px-4 py-3.5 text-stone-600">
+                  <td className="px-4 py-3.5 text-stone-600 dark:text-stone-400">
                     {t.createdBy.name}
                   </td>
 
-                  <td className="px-4 py-3.5 text-stone-500 font-mono text-[11px]">
+                  <td className="px-4 py-3.5 text-stone-500 dark:text-stone-400 font-mono text-[11px]">
                     {new Date(t.updatedAt).toLocaleDateString("es-ES", {
                       day: "2-digit",
                       month: "2-digit",
@@ -251,7 +253,7 @@ export function AdminAuditTable({ tickets }: AdminAuditTableProps) {
                   <td className="px-4 py-3.5 text-right">
                     <Link
                       href={`/dashboard/tickets/${t.id}`}
-                      className="p-1.5 inline-flex items-center text-stone-400 hover:text-[#C2410C] hover:bg-[#FFF1EB] rounded-lg transition-colors"
+                      className="p-1.5 inline-flex items-center text-stone-400 hover:text-[#C2410C] hover:bg-[#FFF1EB] dark:hover:bg-orange-950/40 dark:hover:text-orange-400 rounded-lg transition-colors"
                       title="Ver detalles del ticket"
                     >
                       <ArrowUpRight className="w-4 h-4" />

@@ -34,12 +34,12 @@ export default async function TicketsDashboardPage({ searchParams }: TicketsPage
   return (
     <div className="space-y-6">
       {/* Header y Acciones */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-stone-200/80 pb-5">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-stone-200/80 dark:border-stone-800 pb-5">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight text-stone-900">
+          <h1 className="text-2xl font-bold tracking-tight text-stone-900 dark:text-stone-100">
             Tickets de Soporte
           </h1>
-          <p className="text-xs sm:text-sm text-stone-500 mt-1">
+          <p className="text-xs sm:text-sm text-stone-500 dark:text-stone-400 mt-1">
             {session?.user?.role === "ADMIN"
               ? "Vista global de administración y auditoría de incidencias"
               : "Vista unificada de tickets asignados a tus áreas operativas"}

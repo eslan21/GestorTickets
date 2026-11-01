@@ -28,7 +28,7 @@ export default async function DashboardLayout({
   }
 
   return (
-    <div className="min-h-screen bg-[#FAF7F5] flex text-stone-900 font-sans antialiased">
+    <div className="min-h-screen bg-[#FAF7F5] dark:bg-stone-950 flex text-stone-900 dark:text-stone-100 font-sans antialiased">
       {/* Barra Lateral Colapsable */}
       <AppSidebar userRole={session.user.role} />
 

@@ -249,17 +249,17 @@ export function TicketChat({ ticketId, initialMessages, currentUserId }: TicketC
   };
 
   return (
-    <div className="flex flex-col h-[650px] bg-white border border-stone-200/80 rounded-2xl shadow-sm overflow-hidden">
+    <div className="flex flex-col h-[650px] bg-white dark:bg-stone-900 border border-stone-200/80 dark:border-stone-800 rounded-2xl shadow-sm overflow-hidden transition-colors">
       {/* Encabezado del Chat */}
-      <div className="px-6 py-4 bg-stone-50/70 border-b border-stone-200/80 flex items-center justify-between">
+      <div className="px-6 py-4 bg-stone-50/70 dark:bg-stone-850/80 border-b border-stone-200/80 dark:border-stone-800 flex items-center justify-between">
         <div>
-          <h3 className="text-sm font-bold text-stone-900 flex items-center gap-2">
+          <h3 className="text-sm font-bold text-stone-900 dark:text-stone-100 flex items-center gap-2">
             <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
             Chat Interno & Auditoría
           </h3>
-          <p className="text-xs text-stone-500">Historial en tiempo real del equipo de soporte</p>
+          <p className="text-xs text-stone-500 dark:text-stone-400">Historial en tiempo real del equipo de soporte</p>
         </div>
-        <span className="text-xs bg-stone-100 text-stone-600 font-semibold px-2.5 py-1 rounded-full border border-stone-200">
+        <span className="text-xs bg-stone-100 dark:bg-stone-800 text-stone-600 dark:text-stone-300 font-semibold px-2.5 py-1 rounded-full border border-stone-200 dark:border-stone-700">
           {messages.length} eventos
         </span>
       </div>
@@ -267,11 +267,11 @@ export function TicketChat({ ticketId, initialMessages, currentUserId }: TicketC
       {/* Flujo de Mensajes con scroll contenido */}
       <div
         ref={chatContainerRef}
-        className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-4 bg-[#FBF9F7]"
+        className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-4 bg-[#FBF9F7] dark:bg-stone-950/60"
       >
         {messages.length === 0 ? (
-          <div className="h-full flex flex-col items-center justify-center text-stone-400 text-sm">
-            <Bot className="w-10 h-10 mb-2 stroke-1 text-stone-400" />
+          <div className="h-full flex flex-col items-center justify-center text-stone-400 dark:text-stone-500 text-sm">
+            <Bot className="w-10 h-10 mb-2 stroke-1 text-stone-400 dark:text-stone-500" />
             <p>No hay mensajes en este ticket aún.</p>
           </div>
         ) : (
@@ -287,19 +287,19 @@ export function TicketChat({ ticketId, initialMessages, currentUserId }: TicketC
 
               return (
                 <div key={msg.id} className="flex justify-center my-2">
-                  <div className="max-w-xl w-full bg-stone-100/80 border border-stone-200 rounded-xl p-3 text-xs flex items-start gap-3 shadow-2xs">
-                    <div className="p-1.5 rounded-lg bg-white border border-stone-200 text-stone-700 shrink-0 mt-0.5 shadow-2xs">
+                  <div className="max-w-xl w-full bg-stone-100/80 dark:bg-stone-850/90 border border-stone-200 dark:border-stone-750 rounded-xl p-3 text-xs flex items-start gap-3 shadow-2xs">
+                    <div className="p-1.5 rounded-lg bg-white dark:bg-stone-800 border border-stone-200 dark:border-stone-700 text-stone-700 dark:text-stone-300 shrink-0 mt-0.5 shadow-2xs">
                       {isDerivation ? (
-                        <ArrowRightLeft className="w-4 h-4 text-amber-600" />
+                        <ArrowRightLeft className="w-4 h-4 text-amber-600 dark:text-amber-400" />
                       ) : isResolution ? (
-                        <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+                        <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
                       ) : (
-                        <ShieldAlert className="w-4 h-4 text-stone-600" />
+                        <ShieldAlert className="w-4 h-4 text-stone-600 dark:text-stone-400" />
                       )}
                     </div>
                     <div className="flex-1">
-                      <p className="text-stone-800 leading-relaxed font-medium">{msg.content}</p>
-                      <span className="text-[10px] text-stone-500 mt-0.5 block font-mono">
+                      <p className="text-stone-800 dark:text-stone-200 leading-relaxed font-medium">{msg.content}</p>
+                      <span className="text-[10px] text-stone-500 dark:text-stone-400 mt-0.5 block font-mono">
                         {new Date(msg.createdAt).toLocaleTimeString([], {
                           hour: "2-digit",
                           minute: "2-digit",
@@ -324,7 +324,7 @@ export function TicketChat({ ticketId, initialMessages, currentUserId }: TicketC
                   className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold shrink-0 shadow-2xs ${
                     isMe
                       ? "bg-[#C2410C] text-white"
-                      : "bg-white text-stone-700 border border-stone-200"
+                      : "bg-white dark:bg-stone-800 text-stone-700 dark:text-stone-200 border border-stone-200 dark:border-stone-700"
                   }`}
                 >
                   {msg.sender?.name?.charAt(0).toUpperCase() || <User className="w-4 h-4" />}
@@ -333,7 +333,7 @@ export function TicketChat({ ticketId, initialMessages, currentUserId }: TicketC
                 {/* Burbuja del mensaje */}
                 <div className="flex flex-col">
                   {!isMe && (
-                    <span className="text-[11px] font-semibold text-stone-500 mb-1 ml-1">
+                    <span className="text-[11px] font-semibold text-stone-500 dark:text-stone-400 mb-1 ml-1">
                       {msg.sender?.name || "Usuario"}
                     </span>
                   )}
@@ -342,12 +342,12 @@ export function TicketChat({ ticketId, initialMessages, currentUserId }: TicketC
                     className={`rounded-2xl px-4 py-2.5 text-sm leading-relaxed shadow-2xs break-words space-y-2 ${
                       isMe
                         ? "bg-[#C2410C] text-white rounded-tr-xs"
-                        : "bg-white text-stone-800 border border-stone-200/90 rounded-tl-xs"
+                        : "bg-white dark:bg-stone-800 text-stone-800 dark:text-stone-100 border border-stone-200/90 dark:border-stone-700 rounded-tl-xs"
                     }`}
                   >
                     {/* Imagen adjunta si existe */}
                     {msg.imageUrl && (
-                      <div className="relative group overflow-hidden rounded-xl border border-black/10 mt-1 max-w-sm">
+                      <div className="relative group overflow-hidden rounded-xl border border-black/10 dark:border-white/10 mt-1 max-w-sm">
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img
                           src={msg.imageUrl}
@@ -371,7 +371,7 @@ export function TicketChat({ ticketId, initialMessages, currentUserId }: TicketC
                   </div>
 
                   <span
-                    className={`text-[10px] text-stone-400 mt-1 font-mono ${
+                    className={`text-[10px] text-stone-400 dark:text-stone-500 mt-1 font-mono ${
                       isMe ? "text-right mr-1" : "ml-1"
                     }`}
                   >
@@ -389,22 +389,22 @@ export function TicketChat({ ticketId, initialMessages, currentUserId }: TicketC
 
       {/* Vista previa de imagen seleccionada antes de enviar */}
       {selectedImage && (
-        <div className="px-4 py-2 bg-stone-100 border-t border-stone-200 flex items-center justify-between gap-3">
+        <div className="px-4 py-2 bg-stone-100 dark:bg-stone-850 border-t border-stone-200 dark:border-stone-750 flex items-center justify-between gap-3">
           <div className="flex items-center gap-3">
-            <div className="relative w-12 h-12 rounded-lg overflow-hidden border border-stone-300 shrink-0">
+            <div className="relative w-12 h-12 rounded-lg overflow-hidden border border-stone-300 dark:border-stone-700 shrink-0">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={selectedImage} alt="Vista previa" className="w-full h-full object-cover" />
             </div>
             <div className="text-xs">
-              <span className="font-semibold text-stone-800 block">Imagen adjunta</span>
-              <span className="text-stone-500 text-[11px]">Se enviará junto al mensaje</span>
+              <span className="font-semibold text-stone-800 dark:text-stone-200 block">Imagen adjunta</span>
+              <span className="text-stone-500 dark:text-stone-400 text-[11px]">Se enviará junto al mensaje</span>
             </div>
           </div>
 
           <button
             type="button"
             onClick={() => setSelectedImage(null)}
-            className="p-1 rounded-full hover:bg-stone-200 text-stone-500 hover:text-stone-800 transition-colors"
+            className="p-1 rounded-full hover:bg-stone-200 dark:hover:bg-stone-700 text-stone-500 dark:text-stone-400 hover:text-stone-800 dark:hover:text-stone-200 transition-colors"
             title="Quitar imagen"
           >
             <X className="w-4 h-4" />
@@ -415,7 +415,7 @@ export function TicketChat({ ticketId, initialMessages, currentUserId }: TicketC
       {/* Formulario de Entrada */}
       <form
         onSubmit={handleSendMessage}
-        className="p-3 bg-white border-t border-stone-200 flex items-center gap-2"
+        className="p-3 bg-white dark:bg-stone-900 border-t border-stone-200 dark:border-stone-800 flex items-center gap-2"
       >
         {/* Input file oculto */}
         <input
@@ -430,7 +430,7 @@ export function TicketChat({ ticketId, initialMessages, currentUserId }: TicketC
         <button
           type="button"
           onClick={() => fileInputRef.current?.click()}
-          className="p-2.5 text-stone-500 hover:text-[#C2410C] hover:bg-stone-100 rounded-xl transition-colors shrink-0"
+          className="p-2.5 text-stone-500 dark:text-stone-400 hover:text-[#C2410C] dark:hover:text-orange-400 hover:bg-stone-100 dark:hover:bg-stone-800 rounded-xl transition-colors shrink-0"
           title="Adjuntar imagen (o pega con Ctrl+V)"
         >
           <ImageIcon className="w-5 h-5" />
@@ -443,13 +443,13 @@ export function TicketChat({ ticketId, initialMessages, currentUserId }: TicketC
           onPaste={handlePaste}
           placeholder="Escribe un comentario o actualización (puedes pegar imágenes con Ctrl+V)..."
           disabled={isPending}
-          className="flex-1 bg-stone-50 border border-stone-200 rounded-xl px-4 py-2.5 text-sm text-stone-900 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-[#C2410C] focus:bg-white focus:border-transparent transition-all disabled:opacity-50"
+          className="flex-1 bg-stone-50 dark:bg-stone-800 border border-stone-200 dark:border-stone-700 rounded-xl px-4 py-2.5 text-sm text-stone-900 dark:text-stone-100 placeholder-stone-400 dark:placeholder-stone-500 focus:outline-none focus:ring-2 focus:ring-[#C2410C] focus:bg-white dark:focus:bg-stone-800 focus:border-transparent transition-all disabled:opacity-50"
         />
 
         <button
           type="submit"
           disabled={(!inputContent.trim() && !selectedImage) || isPending}
-          className="bg-[#C2410C] hover:bg-[#9A3412] disabled:bg-stone-200 disabled:text-stone-400 text-white px-4 py-2.5 rounded-xl text-sm font-semibold flex items-center gap-1.5 transition-all shrink-0 shadow-xs"
+          className="bg-[#C2410C] hover:bg-[#9A3412] disabled:bg-stone-200 dark:disabled:bg-stone-800 disabled:text-stone-400 dark:disabled:text-stone-600 text-white px-4 py-2.5 rounded-xl text-sm font-semibold flex items-center gap-1.5 transition-all shrink-0 shadow-xs"
         >
           <span>Enviar</span>
           <Send className="w-4 h-4" />

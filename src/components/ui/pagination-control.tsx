@@ -48,12 +48,12 @@ export function PaginationControl({
 
   return (
     <div
-      className={`flex flex-col sm:flex-row items-center justify-between gap-3 pt-3 border-t border-stone-100 text-xs text-stone-500 ${className}`}
+      className={`flex flex-col sm:flex-row items-center justify-between gap-3 pt-3 border-t border-stone-100 dark:border-stone-800 text-xs text-stone-500 dark:text-stone-400 ${className}`}
     >
       <span className="text-[11px] sm:text-xs">
-        Mostrando <strong className="text-stone-800 font-semibold">{startItem}</strong> a{" "}
-        <strong className="text-stone-800 font-semibold">{endItem}</strong> de{" "}
-        <strong className="text-stone-800 font-semibold">{totalItems}</strong> {label}
+        Mostrando <strong className="text-stone-800 dark:text-stone-200 font-semibold">{startItem}</strong> a{" "}
+        <strong className="text-stone-800 dark:text-stone-200 font-semibold">{endItem}</strong> de{" "}
+        <strong className="text-stone-800 dark:text-stone-200 font-semibold">{totalItems}</strong> {label}
       </span>
 
       {totalPages > 1 && (
@@ -62,7 +62,7 @@ export function PaginationControl({
             type="button"
             onClick={() => onPageChange(currentPage - 1)}
             disabled={currentPage <= 1}
-            className="flex items-center gap-1 px-2.5 py-1 text-stone-500 hover:text-stone-800 hover:bg-stone-100 rounded-md transition-colors disabled:opacity-30 disabled:hover:bg-transparent disabled:cursor-not-allowed text-xs font-medium"
+            className="flex items-center gap-1 px-2.5 py-1 text-stone-500 hover:text-stone-800 dark:text-stone-400 dark:hover:text-stone-100 hover:bg-stone-100 dark:hover:bg-stone-800 rounded-md transition-colors disabled:opacity-30 disabled:hover:bg-transparent disabled:cursor-not-allowed text-xs font-medium"
             title="Página anterior"
           >
             <ChevronLeft className="w-3.5 h-3.5" />
@@ -72,7 +72,7 @@ export function PaginationControl({
           {getPageNumbers().map((p, idx) => {
             if (p === "...") {
               return (
-                <span key={`dots-${idx}`} className="px-1.5 py-1 text-stone-400 select-none text-xs">
+                <span key={`dots-${idx}`} className="px-1.5 py-1 text-stone-400 dark:text-stone-500 select-none text-xs">
                   …
                 </span>
               );
@@ -86,8 +86,8 @@ export function PaginationControl({
                 onClick={() => onPageChange(pageNum)}
                 className={`min-w-[28px] h-7 px-2 flex items-center justify-center text-xs font-semibold rounded-md transition-all ${
                   isActive
-                    ? "bg-[#FFF1EB] text-[#C2410C] font-bold border border-[#FDE0D4] shadow-2xs"
-                    : "text-stone-600 hover:text-stone-900 hover:bg-stone-100"
+                    ? "bg-[#FFF1EB] dark:bg-orange-950/40 text-[#C2410C] dark:text-orange-400 font-bold border border-[#FDE0D4] dark:border-orange-900/50 shadow-2xs"
+                    : "text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100 hover:bg-stone-100 dark:hover:bg-stone-800"
                 }`}
               >
                 {pageNum}
@@ -99,7 +99,7 @@ export function PaginationControl({
             type="button"
             onClick={() => onPageChange(currentPage + 1)}
             disabled={currentPage >= totalPages}
-            className="flex items-center gap-1 px-2.5 py-1 text-stone-500 hover:text-stone-800 hover:bg-stone-100 rounded-md transition-colors disabled:opacity-30 disabled:hover:bg-transparent disabled:cursor-not-allowed text-xs font-medium"
+            className="flex items-center gap-1 px-2.5 py-1 text-stone-500 hover:text-stone-800 dark:text-stone-400 dark:hover:text-stone-100 hover:bg-stone-100 dark:hover:bg-stone-800 rounded-md transition-colors disabled:opacity-30 disabled:hover:bg-transparent disabled:cursor-not-allowed text-xs font-medium"
             title="Página siguiente"
           >
             <span className={compact ? "hidden sm:inline" : "inline"}>Siguiente</span>

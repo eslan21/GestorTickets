@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { ThemeProvider } from "@/components/theme-provider";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -12,9 +13,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es" className="scroll-smooth">
-      <body className="antialiased bg-[#FAF7F5] text-stone-900 min-h-screen">
-        {children}
+    <html lang="es" className="scroll-smooth" suppressHydrationWarning>
+      <body className="antialiased bg-[#FAF7F5] dark:bg-stone-950 text-stone-900 dark:text-stone-100 min-h-screen transition-colors duration-150">
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );

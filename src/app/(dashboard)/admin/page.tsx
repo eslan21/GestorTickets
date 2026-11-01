@@ -124,14 +124,14 @@ export default async function AdminDashboardPage() {
 
           <div>
             <div className="flex items-center gap-2.5 flex-wrap">
-              <h1 className="text-2xl font-bold tracking-tight text-stone-900">
+              <h1 className="text-2xl font-bold tracking-tight text-stone-900 dark:text-stone-100">
                 Panel de Administración Global (RBAC)
               </h1>
-              <span className="bg-[#FFF1EB] text-[#C2410C] font-mono text-[11px] font-bold px-2.5 py-0.5 rounded-full border border-[#FDE0D4]">
+              <span className="bg-[#FFF1EB] dark:bg-orange-950/40 text-[#C2410C] dark:text-orange-400 font-mono text-[11px] font-bold px-2.5 py-0.5 rounded-full border border-[#FDE0D4] dark:border-orange-900/50">
                 NIVEL 0 - ROOT
               </span>
             </div>
-            <p className="text-xs sm:text-sm text-stone-500 mt-1">
+            <p className="text-xs sm:text-sm text-stone-500 dark:text-stone-400 mt-1">
               Supervisión ejecutiva, analítica de rendimiento y métricas de soporte en toda la organización.
             </p>
           </div>
@@ -141,89 +141,89 @@ export default async function AdminDashboardPage() {
       {/* 2. Tarjetas Métricas (4 Columnas) */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {/* Métricas 1: Tickets Totales */}
-        <div className="bg-white border border-[#F0E7E1] p-5 rounded-2xl shadow-2xs flex flex-col justify-between">
+        <div className="bg-white dark:bg-stone-900 border border-[#F0E7E1] dark:border-stone-800 p-5 rounded-2xl shadow-2xs flex flex-col justify-between transition-colors">
           <div className="flex items-start justify-between">
             <div>
-              <span className="text-[11px] font-bold text-stone-400 uppercase tracking-wider block">
+              <span className="text-[11px] font-bold text-stone-400 dark:text-stone-500 uppercase tracking-wider block">
                 Tickets Totales
               </span>
-              <div className="text-3xl font-extrabold text-stone-900 mt-1.5">{totalTickets}</div>
-              <span className="text-xs text-stone-500 mt-0.5 block">en cola actual</span>
+              <div className="text-3xl font-extrabold text-stone-900 dark:text-stone-100 mt-1.5">{totalTickets}</div>
+              <span className="text-xs text-stone-500 dark:text-stone-400 mt-0.5 block">en cola actual</span>
             </div>
-            <div className="p-2.5 rounded-xl bg-[#FFF1EB] text-[#C2410C]">
+            <div className="p-2.5 rounded-xl bg-[#FFF1EB] dark:bg-orange-950/40 text-[#C2410C] dark:text-orange-400">
               <Ticket className="w-5 h-5" />
             </div>
           </div>
-          <div className="flex items-center gap-2 mt-4 pt-3 border-t border-stone-100 flex-wrap">
-            <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[11px] font-semibold bg-[#FFF1EB] text-[#C2410C]">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#C2410C]" />
+          <div className="flex items-center gap-2 mt-4 pt-3 border-t border-stone-100 dark:border-stone-800 flex-wrap">
+            <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[11px] font-semibold bg-[#FFF1EB] dark:bg-orange-950/40 text-[#C2410C] dark:text-orange-400">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#C2410C] dark:bg-orange-400" />
               {openTickets} Abiertos
             </span>
-            <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[11px] font-semibold bg-[#FFFBEB] text-[#B45309]">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#D97706]" />
+            <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[11px] font-semibold bg-[#FFFBEB] dark:bg-amber-950/40 text-[#B45309] dark:text-amber-400">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#D97706] dark:bg-amber-400" />
               {inProgressTickets} En Curso
             </span>
           </div>
         </div>
 
         {/* Métricas 2: Tickets Resueltos */}
-        <div className="bg-white border border-[#F0E7E1] p-5 rounded-2xl shadow-2xs flex flex-col justify-between">
+        <div className="bg-white dark:bg-stone-900 border border-[#F0E7E1] dark:border-stone-800 p-5 rounded-2xl shadow-2xs flex flex-col justify-between transition-colors">
           <div className="flex items-start justify-between">
             <div>
-              <span className="text-[11px] font-bold text-stone-400 uppercase tracking-wider block">
+              <span className="text-[11px] font-bold text-stone-400 dark:text-stone-500 uppercase tracking-wider block">
                 Tickets Resueltos
               </span>
-              <div className="text-3xl font-extrabold text-stone-900 mt-1.5">{resolvedTickets}</div>
-              <span className="text-xs text-stone-500 mt-0.5 block">ciclo actual</span>
+              <div className="text-3xl font-extrabold text-stone-900 dark:text-stone-100 mt-1.5">{resolvedTickets}</div>
+              <span className="text-xs text-stone-500 dark:text-stone-400 mt-0.5 block">ciclo actual</span>
             </div>
-            <div className="p-2.5 rounded-xl bg-[#FEF3C7] text-[#B45309]">
+            <div className="p-2.5 rounded-xl bg-[#FEF3C7] dark:bg-amber-950/40 text-[#B45309] dark:text-amber-400">
               <CheckCircle2 className="w-5 h-5" />
             </div>
           </div>
-          <div className="mt-4 pt-3 border-t border-stone-100">
-            <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[11px] font-semibold bg-[#FFFBEB] text-[#B45309]">
+          <div className="mt-4 pt-3 border-t border-stone-100 dark:border-stone-800">
+            <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[11px] font-semibold bg-[#FFFBEB] dark:bg-amber-950/40 text-[#B45309] dark:text-amber-400">
               ✓ Tasa de resolución activa
             </span>
           </div>
         </div>
 
         {/* Métricas 3: Usuarios Registrados */}
-        <div className="bg-white border border-[#F0E7E1] p-5 rounded-2xl shadow-2xs flex flex-col justify-between">
+        <div className="bg-white dark:bg-stone-900 border border-[#F0E7E1] dark:border-stone-800 p-5 rounded-2xl shadow-2xs flex flex-col justify-between transition-colors">
           <div className="flex items-start justify-between">
             <div>
-              <span className="text-[11px] font-bold text-stone-400 uppercase tracking-wider block">
+              <span className="text-[11px] font-bold text-stone-400 dark:text-stone-500 uppercase tracking-wider block">
                 Usuarios Registrados
               </span>
-              <div className="text-3xl font-extrabold text-stone-900 mt-1.5">{totalUsers}</div>
-              <span className="text-xs text-stone-500 mt-0.5 block">colaboradores</span>
+              <div className="text-3xl font-extrabold text-stone-900 dark:text-stone-100 mt-1.5">{totalUsers}</div>
+              <span className="text-xs text-stone-500 dark:text-stone-400 mt-0.5 block">colaboradores</span>
             </div>
-            <div className="p-2.5 rounded-xl bg-[#FFF1EB] text-[#C2410C]">
+            <div className="p-2.5 rounded-xl bg-[#FFF1EB] dark:bg-orange-950/40 text-[#C2410C] dark:text-orange-400">
               <Users className="w-5 h-5" />
             </div>
           </div>
-          <div className="mt-4 pt-3 border-t border-stone-100">
-            <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[11px] font-semibold bg-[#FFF1EB] text-[#C2410C]">
+          <div className="mt-4 pt-3 border-t border-stone-100 dark:border-stone-800">
+            <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[11px] font-semibold bg-[#FFF1EB] dark:bg-orange-950/40 text-[#C2410C] dark:text-orange-400">
               ● Técnicos y Administradores
             </span>
           </div>
         </div>
 
         {/* Métricas 4: Grupos / Áreas */}
-        <div className="bg-white border border-[#F0E7E1] p-5 rounded-2xl shadow-2xs flex flex-col justify-between">
+        <div className="bg-white dark:bg-stone-900 border border-[#F0E7E1] dark:border-stone-800 p-5 rounded-2xl shadow-2xs flex flex-col justify-between transition-colors">
           <div className="flex items-start justify-between">
             <div>
-              <span className="text-[11px] font-bold text-stone-400 uppercase tracking-wider block">
+              <span className="text-[11px] font-bold text-stone-400 dark:text-stone-500 uppercase tracking-wider block">
                 Grupos / Áreas
               </span>
-              <div className="text-3xl font-extrabold text-stone-900 mt-1.5">{totalGroups}</div>
-              <span className="text-xs text-stone-500 mt-0.5 block">departamentos</span>
+              <div className="text-3xl font-extrabold text-stone-900 dark:text-stone-100 mt-1.5">{totalGroups}</div>
+              <span className="text-xs text-stone-500 dark:text-stone-400 mt-0.5 block">departamentos</span>
             </div>
-            <div className="p-2.5 rounded-xl bg-[#FFF1EB] text-[#C2410C]">
+            <div className="p-2.5 rounded-xl bg-[#FFF1EB] dark:bg-orange-950/40 text-[#C2410C] dark:text-orange-400">
               <Share2 className="w-5 h-5" />
             </div>
           </div>
-          <div className="mt-4 pt-3 border-t border-stone-100">
-            <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[11px] font-semibold bg-[#FFFBEB] text-[#B45309]">
+          <div className="mt-4 pt-3 border-t border-stone-100 dark:border-stone-800">
+            <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[11px] font-semibold bg-[#FFFBEB] dark:bg-amber-950/40 text-[#B45309] dark:text-amber-400">
               ✓ Equipos operativos
             </span>
           </div>

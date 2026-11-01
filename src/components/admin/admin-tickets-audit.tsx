@@ -37,41 +37,41 @@ export function AdminTicketsAudit({ tickets }: AdminTicketsAuditProps) {
   const currentTickets = tickets.slice(startIndex, startIndex + ITEMS_PER_PAGE);
 
   return (
-    <div className="bg-white border border-[#F0E7E1] rounded-2xl p-5 shadow-2xs flex flex-col justify-between">
+    <div className="bg-white dark:bg-stone-900 border border-[#F0E7E1] dark:border-stone-800 rounded-2xl p-5 shadow-2xs flex flex-col justify-between transition-colors">
       <div>
         {/* Cabecera */}
-        <div className="flex items-center justify-between pb-3.5 border-b border-stone-100">
-          <h2 className="text-sm font-bold text-stone-900 flex items-center gap-2">
-            <Clock className="w-4 h-4 text-[#C2410C]" />
+        <div className="flex items-center justify-between pb-3.5 border-b border-stone-100 dark:border-stone-800">
+          <h2 className="text-sm font-bold text-stone-900 dark:text-stone-100 flex items-center gap-2">
+            <Clock className="w-4 h-4 text-[#C2410C] dark:text-orange-400" />
             <span>Auditoría Global de Tickets</span>
           </h2>
           <Link
             href="/admin/auditoria"
-            className="text-xs font-semibold text-[#C2410C] hover:text-[#9A3412] transition-colors"
+            className="text-xs font-semibold text-[#C2410C] dark:text-orange-400 hover:text-[#9A3412] dark:hover:text-orange-300 transition-colors"
           >
             Ver auditoría completa →
           </Link>
         </div>
 
         {/* Lista de tickets (Máximo 5 por página) */}
-        <div className="divide-y divide-stone-100 mt-1 min-h-[295px]">
+        <div className="divide-y divide-stone-100 dark:divide-stone-800 mt-1 min-h-[295px]">
           {tickets.length === 0 ? (
-            <p className="text-xs text-stone-400 py-10 text-center">No hay tickets registrados aún.</p>
+            <p className="text-xs text-stone-400 dark:text-stone-500 py-10 text-center">No hay tickets registrados aún.</p>
           ) : (
             currentTickets.map((t) => (
               <div key={t.id} className="py-3 flex items-center justify-between gap-4">
                 <div className="flex items-start gap-3">
-                  <div className="w-8 h-8 rounded-xl bg-[#FFF1EB] text-[#C2410C] flex items-center justify-center shrink-0 mt-0.5">
+                  <div className="w-8 h-8 rounded-xl bg-[#FFF1EB] dark:bg-orange-950/40 text-[#C2410C] dark:text-orange-400 flex items-center justify-center shrink-0 mt-0.5">
                     <Ticket className="w-4 h-4" />
                   </div>
                   <div>
                     <Link
                       href={`/dashboard/tickets/${t.id}`}
-                      className="text-xs sm:text-sm font-bold text-stone-800 hover:text-[#C2410C] transition-colors line-clamp-1"
+                      className="text-xs sm:text-sm font-bold text-stone-800 dark:text-stone-200 hover:text-[#C2410C] dark:hover:text-orange-400 transition-colors line-clamp-1"
                     >
                       {t.title}
                     </Link>
-                    <div className="flex items-center gap-2 text-[11px] text-stone-500 mt-0.5">
+                    <div className="flex items-center gap-2 text-[11px] text-stone-500 dark:text-stone-400 mt-0.5">
                       <span>{t.group.name}</span>
                       <span>•</span>
                       <span>{t.assignedTo ? `👤 ${t.assignedTo.name}` : "Sin asignar"}</span>
@@ -100,9 +100,9 @@ export function AdminTicketsAudit({ tickets }: AdminTicketsAuditProps) {
       </div>
 
       {/* Pie de tarjeta */}
-      <div className="pt-3.5 mt-2 border-t border-stone-100 flex items-center justify-between text-[11px] text-stone-400">
-        <span className="flex items-center gap-1.5 font-medium text-stone-600">
-          <span className="w-2 h-2 rounded-full bg-[#C2410C] animate-pulse" />
+      <div className="pt-3.5 mt-2 border-t border-stone-100 dark:border-stone-800 flex items-center justify-between text-[11px] text-stone-400 dark:text-stone-500">
+        <span className="flex items-center gap-1.5 font-medium text-stone-600 dark:text-stone-300">
+          <span className="w-2 h-2 rounded-full bg-[#C2410C] dark:bg-orange-500 animate-pulse" />
           Escucha de eventos en tiempo real
         </span>
         <span>{tickets.length} eventos hoy</span>
