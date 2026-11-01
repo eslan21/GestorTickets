@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: 30 20% 98%;
+  --foreground: 20 14% 12%;
+  --card: 0 0% 100%;
+  --card-foreground: 20 14% 12%;
+  --primary: 18 88% 40%;
+  --primary-foreground: 0 0% 100%;
+  --muted: 30 15% 95%;
+  --muted-foreground: 25 5% 45%;
+  --border: 25 15% 91%;
+}
+
+body {
+  background-color: #FAF7F5;
+  color: #1C1917;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  min-height: 100vh;
+}

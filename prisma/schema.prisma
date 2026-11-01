@@ -1,0 +1,134 @@
+// prisma/schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+// -------------------------------------------------------------
+// ENUMS
+// -------------------------------------------------------------
+
+enum Role {
+  ADMIN
+  USER
+}
+
+enum TicketStatus {
+  OPEN
+  IN_PROGRESS
+  RESOLVED
+  CLOSED
+}
+
+enum TicketPriority {
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
+}
+
+enum MessageType {
+  USER
+  SYSTEM
+}
+
+// -------------------------------------------------------------
+// MODELOS
+// -------------------------------------------------------------
+
+model User {
+  id        String   @id @default(cuid())
+  name      String
+  email     String   @unique
+  password  String
+  role      Role     @default(USER)
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relaciones
+  groups          Group[]         @relation("UserGroups")
+  ticketsCreated  Ticket[]        @relation("TicketCreator")
+  ticketsAssigned Ticket[]        @relation("TicketAssignee")
+  messages        TicketMessage[]
+
+  @@index([email])
+  @@index([role])
+  @@map("users")
+}
+
+model Group {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  description String?  @db.Text
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relaciones
+  members User[]   @relation("UserGroups")
+  tickets Ticket[]
+
+  @@index([name])
+  @@map("groups")
+}
+
+model Ticket {
+  id          String         @id @default(cuid())
+  title       String
+  description String         @db.Text
+  status      TicketStatus   @default(OPEN)
+  priority    TicketPriority @default(MEDIUM)
+
+  // Grupo actualmente responsable del ticket
+  groupId String
+  group   Group  @relation(fields: [groupId], references: [id], onDelete: Restrict)
+
+  // Creador del ticket
+  createdById String
+  createdBy   User   @relation("TicketCreator", fields: [createdById], references: [id], onDelete: Restrict)
+
+  // Técnico asignado individualmente dentro del grupo (opcional)
+  assignedToId String?
+  assignedTo   User?   @relation("TicketAssignee", fields: [assignedToId], references: [id], onDelete: SetNull)
+
+  // Chat interno y mensajes de sistema
+  messages TicketMessage[]
+
+  // Marcas de tiempo y resolución
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  resolvedAt DateTime?
+
+  // Índices para optimizar consultas de dashboard y filtros
+  @@index([groupId])
+  @@index([status])
+  @@index([priority])
+  @@index([createdById])
+  @@index([assignedToId])
+  @@index([groupId, status])
+  @@map("tickets")
+}
+
+model TicketMessage {
+  id       String      @id @default(cuid())
+  ticketId String
+  ticket   Ticket      @relation(fields: [ticketId], references: [id], onDelete: Cascade)
+  senderId String?
+  sender   User?       @relation(fields: [senderId], references: [id], onDelete: SetNull)
+  content  String      @db.Text
+  imageUrl String?     @db.Text
+  type     MessageType @default(USER)
+
+  createdAt DateTime @default(now())
+
+  // Índices para ordenación cronológica y remitente
+  @@index([ticketId, createdAt])
+  @@index([senderId])
+  @@map("ticket_messages")
+}
